@@ -1,6 +1,8 @@
 import requests
 import urllib.request
 import time
+import json
+
 from bs4 import BeautifulSoup
 from prettytable import PrettyTable
 
@@ -15,9 +17,21 @@ soup = BeautifulSoup(response.text, "html.parser")
 
 font = soup.findAll('script')
 
-scriptList = font.text
+category_list = (font[11]).text.split('=')
 
+original_list = (category_list[119])
 
+original_list = original_list.split("preselected_cat_id")[0]
+
+original_list = original_list.strip()
+
+original_list = original_list.split(";")[0] + original_list.split(";")[1] + original_list.split(";")[2]
+
+json_data = json.loads(original_list)
+
+for (k, v) in json_data.items():
+    print("Key: " + k)
+    print("Value: " + str(v))
 
 # Finding all the supplier list
 # ink_toner_supplier = soup.find("div", {"id": "droppable1"})
@@ -127,4 +141,3 @@ scriptList = font.text
 #
 #     print(model_brand_identity_table)
 #     print(model_category_table)
-
