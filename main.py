@@ -29,9 +29,38 @@ original_list = original_list.split(";")[0] + original_list.split(";")[1] + orig
 
 json_data = json.loads(original_list)
 
+name_list = ""
+
 for (k, v) in json_data.items():
-    print("Key: " + k)
-    print("Value: " + str(v))
+    #print("Key: " + k)
+
+    value_json = str(v)
+
+    name_list = value_json.strip('[]')
+
+
+
+    # print(name_list)
+    #name_list = name_list.findAll('name')
+
+url_model_category = "http://118.179.99.133/new/parse.php"
+model_category_response = requests.get(url_model_category)
+soup_supplier = BeautifulSoup(model_category_response.text, "html.parser")
+print(soup_supplier)
+
+supplier_table = PrettyTable(['SN', 'Brand'])
+
+
+
+
+
+
+
+
+# url_model_category = "http://118.179.99.133/new/parse.php"
+# PARAMS = {'json_data': brand_id}
+# model_category_response = requests.get(url=url_model_category, params=PARAMS)
+
 
 # Finding all the supplier list
 # ink_toner_supplier = soup.find("div", {"id": "droppable1"})
