@@ -42,14 +42,14 @@ for (k, v) in json_data.items():
     # print(name_list)
 
 
-split1 = name_list.split("': {'name': '")
-index = 0
+split_brand = name_list.split("': {'name': '")
+index_brand = 0
 supplier_table = PrettyTable(['SN', 'Brand'])
 ind = 1
-while index < len(split1)-1:
-    split2 = split1[index+1].split("', 'selected'")
-    index = index + 1
-    supplier_table.add_row([str(ind), split2[0]])
+while index_brand < len(split_brand)-1:
+    split_brand2 = split_brand[index_brand+1].split("', 'selected'")
+    index_brand = index_brand + 1
+    supplier_table.add_row([str(ind), split_brand2[0]])
     ind = ind + 1
 
 print(supplier_table)

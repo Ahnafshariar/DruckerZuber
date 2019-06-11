@@ -3,6 +3,8 @@ import urllib.request
 import time
 import json
 
+start = time.time()
+
 from bs4 import BeautifulSoup
 from prettytable import PrettyTable
 
@@ -44,29 +46,60 @@ split1 = name_list.split("', 'selected': False, 'topseller_groups': [], 'topsell
 # print(split1)
 index = 0
 
-supplier_table = PrettyTable(['SN', 'Brand', 'Link'])
-print(len(split1))
+split_brand = name_list.split("': {'name': '")
+index_brand = 0
+
+ind = 1
+
+supplier_table2 = PrettyTable(['SN', 'Brand'])
+
+while index_brand < len(split_brand)-1:
+    split_brand2 = split_brand[index_brand+1].split("', 'selected'")
+    index_brand = index_brand + 1
+    supplier_table2.add_row([str(ind), split_brand2[0]])
+    ind = ind + 1
+
+
+
+
+
+supplier_table = PrettyTable(['SN', 'Series', 'Link'])
+#print(len(split1))
 while index < len(split1):
     spp = split1[index]
     # print(split1)
     # break
+
+
+
+
     if index == 0:
         split2 = spp.split("{'")[1].split(",")[0]
         # print(split2)
         # break
         link_generate = "https://www.druckerzubehoer.de/shop/subcategory/vcatid/DV-TinteToner/catid/" + split2 + "/lng/de_DE/site/1/lng/de_DE"
         #print(link_generate)
-        supplier_table.add_row([str(index), split2, link_generate])
+        supplier_table.add_row([str(index+1), split2, link_generate])
     else:
         split2 = spp.split("': {'name': '")[0].split(",")[0]
         link_generate = "https://www.druckerzubehoer.de/shop/subcategory/vcatid/DV-TinteToner/catid/" + split2 + "/lng/de_DE/site/1/lng/de_DE"
-        supplier_table.add_row([str(index), split2, link_generate])
+        supplier_table.add_row([str(index+1), split2, link_generate])
 
     #link_generate = "https://www.druckerzubehoer.de/shop/subcategory/vcatid/DV-TinteToner/catid/"+split2+"/lng/de_DE/site/1/lng/de_DE"
+    index_brand = index_brand + 1
 
     index = index + 1
 
-print(supplier_table)
+
+
+print(supplier_table, supplier_table2)
+
+
+
+
+stop = time.time()
+
+print('Took %.2f seconds to execute.' %(stop - start))
 
 
 
