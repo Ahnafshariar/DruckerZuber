@@ -37,18 +37,21 @@ for (k, v) in json_data.items():
     value_json = str(v)
 
     name_list = value_json.strip('[]')
-
-
-
     # print(name_list)
-    #name_list = name_list.findAll('name')
 
-url_model_category = "http://118.179.99.133/new/parse.php"
-model_category_response = requests.get(url_model_category)
-soup_supplier = BeautifulSoup(model_category_response.text, "html.parser")
-print(soup_supplier)
 
+split1 = name_list.split("': {'name': '")
+index = 0
+ind = 1
 supplier_table = PrettyTable(['SN', 'Brand'])
+while (index < len(split1)-1):
+    split2 = split1[index+1].split("', 'selected'")
+    index = index + 2
+    supplier_table.add_row([str(ind), split2[0]])
+    ind = ind + 1
+
+print(supplier_table)
+
 
 
 
