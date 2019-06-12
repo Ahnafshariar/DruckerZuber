@@ -34,7 +34,7 @@ json_data = json.loads(original_list)
 name_list = ""
 
 for (k, v) in json_data.items():
-    #print("Key: " + k)
+    # print("Key: " + k)
 
     value_json = str(v)
 
@@ -51,59 +51,46 @@ index_brand = 0
 
 ind = 1
 
-supplier_table2 = PrettyTable(['SN', 'Brand'])
+# supplier_table2 = PrettyTable(['SN', 'Brand'])
 
-while index_brand < len(split_brand)-1:
-    split_brand2 = split_brand[index_brand+1].split("', 'selected'")
-    index_brand = index_brand + 1
-    supplier_table2.add_row([str(ind), split_brand2[0]])
-    ind = ind + 1
+# while index_brand < len(split_brand)-1:
+    # split_brand2 = split_brand[index_brand+1].split("', 'selected'")
+    # index_brand = index_brand + 1
+    #supplier_table2.add_row([str(ind), split_brand2[0]])
+    # ind = ind + 1
 
-
-
-
-
-supplier_table = PrettyTable(['SN', 'Series', 'Link'])
-#print(len(split1))
-while index < len(split1):
+supplier_table = PrettyTable(['SN', index_brand, 'Series', 'Link'])
+# print(len(split1))
+while index < len(split1) or index_brand < len(split_brand)-1:
     spp = split1[index]
+    #split_brand2 = split_brand[index_brand + 1].split("', 'selected'")
     # print(split1)
     # break
-
-
-
 
     if index == 0:
         split2 = spp.split("{'")[1].split(",")[0]
         # print(split2)
         # break
+        split_brand2 = split_brand[index_brand + 1].split("', 'selected'")
         link_generate = "https://www.druckerzubehoer.de/shop/subcategory/vcatid/DV-TinteToner/catid/" + split2 + "/lng/de_DE/site/1/lng/de_DE"
-        #print(link_generate)
-        supplier_table.add_row([str(index+1), split2, link_generate])
+        # print(link_generate)
+        supplier_table.add_row([str(index+1), split_brand2[0], split2, link_generate])
     else:
         split2 = spp.split("': {'name': '")[0].split(",")[0]
+        split_brand2 = split_brand[index_brand + 1].split("', 'selected'")
         link_generate = "https://www.druckerzubehoer.de/shop/subcategory/vcatid/DV-TinteToner/catid/" + split2 + "/lng/de_DE/site/1/lng/de_DE"
-        supplier_table.add_row([str(index+1), split2, link_generate])
+        supplier_table.add_row([str(index+1), split_brand2[0], split2, link_generate])
 
-    #link_generate = "https://www.druckerzubehoer.de/shop/subcategory/vcatid/DV-TinteToner/catid/"+split2+"/lng/de_DE/site/1/lng/de_DE"
+    # link_generate = "https://www.druckerzubehoer.de/shop/subcategory/vcatid/DV-TinteToner/catid/"+split2+"/lng/de_DE/site/1/lng/de_DE"
     index_brand = index_brand + 1
 
     index = index + 1
 
-
-
-print(supplier_table, supplier_table2)
-
-
-
+print(supplier_table)
 
 stop = time.time()
 
 print('Took %.2f seconds to execute.' %(stop - start))
-
-
-
-
 
 # index = 0
 # ind = 1
@@ -115,14 +102,6 @@ print('Took %.2f seconds to execute.' %(stop - start))
 #     ind = ind + 1
 #
 # print(supplier_table)
-
-
-
-
-
-
-
-
 
 # url_model_category = "http://118.179.99.133/new/parse.php"
 # PARAMS = {'json_data': brand_id}
